@@ -20,7 +20,6 @@ public class AlunoLoader extends Usuario implements ApplicationRunner{
     public AlunoLoader(AlunoServices alunoServices) {
         this.alunoServices = alunoServices;
     }
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
 

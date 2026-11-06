@@ -22,7 +22,7 @@ public class AlunoController  {
     //GET - lista completa
     @GetMapping
     public List<Aluno> lista(){
-        return alunoServices.listaAlunos();
+        return alunoServices.listaUsuarios();
     }
     //GET - mostrar pelo ID
     @GetMapping(value = "/{id}")

@@ -1,7 +1,7 @@
 package grupGymcom.example.demo.Services;
 
 import grupGymcom.example.demo.Domain.Aluno;
-import grupGymcom.example.demo.Exception.VendedorNaoEncontradoException;
+import grupGymcom.example.demo.Exception.AlunoNaoEncontradoException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,15 +10,13 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-//Regra de negocio do Aluno
 @Service
-public class AlunoServices implements  CrudServices <Aluno, Long > {
+public class AlunoServices implements CrudServices <Aluno,Long > {
 
     //SALVAR NA MEMORIA COM O MAP
     private final Map< Long, Aluno > mapa = new ConcurrentHashMap<>();
-    //Incrementar o ID automaticamente
+
     private final AtomicLong incrementa = new AtomicLong(1);
-    //regras de como agir para criar - ler - atualizar - deletar
 
 private void validarAlunoNome(Aluno aluno){
     if(aluno == null){
@@ -65,7 +63,7 @@ private void validarAlunoNome(Aluno aluno){
         }
 
         if(!mapa.containsKey(id)){
-            throw new VendedorNaoEncontradoException("O aluno com o ID: " + id + "não foi encontrado");
+            throw new AlunoNaoEncontradoException("O aluno com o ID: " + id + "não foi encontrado");
         }
 
         return mapa.remove(id);
@@ -87,19 +85,25 @@ private void validarAlunoNome(Aluno aluno){
     }
 
     //GET - mostrar a lista por completo
+    // @Override
+    //  public List<Aluno> listaAlunos() {
+    //      return new ArrayList<Aluno>(mapa.values());
+    //  }
+
     @Override
-    public List<Aluno> listaAlunos() {
+    public List<Aluno> listaUsuarios() {
         return new ArrayList<Aluno>(mapa.values());
     }
+
     //GET - mostrar por ID
     @Override
     public Aluno mostrarId(Long id) {
-    Aluno aluno = mapa.get(id);
+        Aluno aluno = mapa.get(id);
 
-    if(aluno == null){
-        throw new IllegalArgumentException("Não foi possivel obter o aluno pelo seu ID" +id);
-    }
-    return aluno;
+        if(aluno == null){
+            throw new IllegalArgumentException("Não foi possivel obter o aluno pelo seu ID" +id);
+        }
+        return aluno;
     }
 
 
