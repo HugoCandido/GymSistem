@@ -18,7 +18,13 @@ public class AlunoServices implements CrudServices <Aluno,Long > {
 
     private final AtomicLong incrementa = new AtomicLong(1);
 
-private void validarAlunoNome(Aluno aluno){
+    private final MatriculaServices matriculaServices;
+
+    public AlunoServices(MatriculaServices matriculaServices) {
+        this.matriculaServices = matriculaServices;
+    }
+
+    private void validarAlunoNome(Aluno aluno){
     if(aluno == null){
         throw new IllegalArgumentException("O nome é um campo obrigatorio para ser preenchido");
     }if(aluno.getNome() == null || aluno.getNome().trim().isEmpty()){
@@ -33,9 +39,11 @@ private void validarAlunoNome(Aluno aluno){
 
         //incrementa o ID
         aluno.setId(incrementa.getAndIncrement());
-
         //armazena na memoria o objeto
         mapa.put(aluno.getId(), aluno);
+
+        //Incrementa a matricula
+        matriculaServices.criarMatricula(aluno);
 
         return aluno;
     }

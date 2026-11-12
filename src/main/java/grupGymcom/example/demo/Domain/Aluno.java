@@ -1,5 +1,7 @@
 package grupGymcom.example.demo.Domain;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 public class Aluno extends Usuario {
 
     //definir os atributos da classe aluno (que o aluno terá de diferente e somente dele).
@@ -60,4 +62,6 @@ public class Aluno extends Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }
